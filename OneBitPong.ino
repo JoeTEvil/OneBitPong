@@ -13,8 +13,9 @@
 #define PLAYER_2_PIN    3   // Player Two (Big Green Button)
 #define SELECT_PIN      4   // Select  (Small Black Button)
 #define START_PIN       5   // Start (Small Red Button)
-#define SPEAKER_PIN     6   // Speaker
+#define SOUND_MODE_PIN  6   // Sound Mode Switch
 #define PIXEL_PIN       7   // NeoPixels
+#define SPEAKER_PIN     9   // Speaker
 #define ANALOG_PIN      A0  // Potentiometer
 
 #define PIXEL_COUNT 10
@@ -27,8 +28,23 @@ OneButton Select(SELECT_PIN, false);
 OneButton Start(START_PIN, false);
 
 void setup() {
-  // put your setup code here, to run once:
-
+  pinMode(SOUND_MODE_PIN, INPUT);
+  pinMode(SPEAKER_PIN, OUTPUT);
+  strip.begin();
+  strip.show(); // Initialize all pixels to 'off'
+  // OneButton Init
+  Player_1.attachLongPressStart(startPLAYER_1);
+  Player_1.attachDuringLongPress(longPressPLAYER_1);
+  Player_1.attachLongPressStop(stopPLAYER_1);
+  Player_2.attachLongPressStart(startPLAYER_2);
+  Player_2.attachDuringLongPress(longPressPLAYER_2);
+  Player_2.attachLongPressStop(stopPLAYER_2);
+  Select.attachLongPressStart(startSELECT);
+  Select.attachDuringLongPress(longPressSELECT);
+  Select.attachLongPressStop(stopSELECT);
+  Start.attachLongPressStart(startSTART);
+  Start.attachDuringLongPress(longPressSTART);
+  Start.attachLongPressStop(stopSTART);
 }
 
 void loop() {
